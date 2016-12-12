@@ -5,6 +5,14 @@
 #define KOLUMNY 1024
 #define MWIERSZY 512
 
+
+void fun(char **tabw) {
+	
+	char *p = tabw[0];
+	tabw[0] = tabw[1];
+	tabw[1] = p;
+}
+
 int main(int argc, char *argv[]) {
 
 	FILE *pWe;	// plik wejsciowy
@@ -46,6 +54,14 @@ int main(int argc, char *argv[]) {
 		printf("Wiersz %d: %s", i, tabw[i]);
 	}
 
+	fun(tabw);
+
+	//for(i=0; i<wiersz; i++) {
+	//	printf("i %s", tabw[0]);
+	//}	
+
+	//tabw[0] = "a";
+
 
 	pWy = fopen(plik_wyjsciowy, "w");
 	if (pWy == NULL) {
@@ -58,7 +74,7 @@ int main(int argc, char *argv[]) {
 	else {	//poprawne otwarcie pliku wyjsciowego
 		for(i=wiersz-1; i>=0; i--) {
 			fprintf(pWy, "%s", tabw[i]);
-			free((void *) tabw[i]);
+			free(tabw[i]);
 		}
 	}
 	fclose(pWy);
